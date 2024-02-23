@@ -5,112 +5,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profit Calculation for Pooja's Patient</title>
 <style>
-  body {
-    font-family: "Candara", cursive;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-  }
+ body {
+  font-family: "Helvetica";
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f8ff; /* Light cyan background */
+}
 
-  #container {
-    background-color: lightgray;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 400px;
-    max-width: 90%;
-  }
+#container {
+  background-color: #f0ffff; /* Light cyan container background */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 400px;
+  max-width: 90%;
+}
 
-  h2 {
-    color: #00ff99;
-    font-size: 30px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #4caf50;
-  }
+h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #265073; /* Dark blue */
+}
 
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 20px;
-  }
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #265073; /* Dark blue */
+}
 
-  input {
-    width: calc(100% - 10px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 18px;
-  }
+input {
+  width: calc(100% - 10px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 18px;
+}
 
-  button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-    width: 100%;
-    display: block;
-    transition: all 0.3s ease;
-  }
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  transition: all 0.3s ease;
+  color: #fff; /* White text */
+}
 
-  #calculateButton {
-    background-color: #4caf50;
-    color: white;
-  }
+#calculateButton {
+  background-color: #265073; /* Dark blue */
+}
 
-  #calculateButton:hover {
-    background-color: #45a049;
-  }
+#calculateButton:hover {
+  background-color: #50623A; /* Dark green */
+}
 
-  #resetButton {
-    background-color: #ff9800;
-    color: white;
-  }
+#resetButton {
+  background-color: #C6A969; /* Light brown */
+}
 
-  #resetButton:hover {
-    background-color: #e68a00;
-  }
+#resetButton:hover {
+  background-color: #C68642; /* Darker brown */
+}
 
-  p {
-    margin-top: 20px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-    text-align: center;
-  }
-  #result {
-    color: #6600cc;
-    font-size: 20px;
-  }
-  #result1 {
-    color: #039be9;
-    font-size: 20px;
-  }
+p {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333; /* Dark gray */
+  text-align: center;
+}
+
+#result,
+#result1,
+#result2 {
+  color: #211C6A; /* Dark purple */
+  font-size: 25px;
+  font-family: "Helvetica";
+}
 </style>
 </head>
 <body>
   <div id="container">
     <h2>Profit Calculation for Pooja's Patient</h2>
-    <label for="totalcost">Total Cost Provided to Customer:</label>
-    <input type="number" id="totalcost" value="0.0">
+    <label for="totalcost">Total Cost Provided to Patient:</label>
+    <input type="number" id="totalcost" value="0.0" onclick="clearContent(this)">
     <label for="alignercost">Aligner's Cost:</label>
-    <input type="number" id="alignercost" value="0.0">
+    <input type="number" id="alignercost" value="0.0" onclick="clearContent(this)">
     <label for="alignerdiscount">Aligner's Discount if any:</label>
-    <input type="number" id="alignerdiscount" value="0.0">
+    <input type="number" id="alignerdiscount" value="0.0" onclick="clearContent(this)">
     <label for="clinicshare">Clinic's Share in % if any:</label>
-    <input type="number" id="clinicshare" value="0.0">
+    <input type="number" id="clinicshare" value="0.0" onclick="clearContent(this)">
     <button id="calculateButton" onclick="calculateProfit()">Calculate Profit</button>
     <button id="resetButton" onclick="resetValues()">Reset</button>
     <p id="result">Pooja's Profit after Aligner Cost: 0.0</p>
+    <p id="result2">Share given to clinic : 0.0</p>
     <p id="result1">Pooja's profit after Clinic share: 0.0</p>
   </div>
 
@@ -124,6 +123,8 @@
       document.getElementById('result').innerText = "Pooja's Profit after Aligner Cost: " + profitAfterAlignerCost;
       var profitAfterClinicShare = profitAfterAlignerCost - (profitAfterAlignerCost * clinicShare / 100);
       document.getElementById('result1').innerText = "Pooja's profit after Clinic share: " + profitAfterClinicShare;
+      var clinicshare = profitAfterAlignerCost - profitAfterClinicShare;
+      document.getElementById('result2').innerText = "Pooja's profit after Clinic share: " + clinicshare;
     }
 
     function resetValues() {
@@ -133,6 +134,10 @@
       document.getElementById('clinicshare').value = 0.0;
       document.getElementById('result').innerText = "Pooja's Profit after Aligner Cost: 0.0";
       document.getElementById('result1').innerText = "Pooja's profit after Clinic share: 0.0";
+    }
+
+    function clearContent(element) {
+      element.value = ""; // Clears the content of the clicked textbox
     }
   </script>
 </body>
